@@ -5,10 +5,33 @@
 }
 
 .fullwidth {
-    width: 100%;
     display: flex;
+    margin-top: 20px;
+    width: 100%;
     padding-bottom: 20px;
-    justify-content: flex-end;
+    justify-content: space-between;
+}
+
+.fullwidth .rightCol {
+    display: none;
+}
+
+@media screen and (min-width: 1050px) {
+
+    .fullwidth {
+        margin-top : 0;
+        margin-bottom: 30px;
+        border-bottom: 1px solid #DEDEDE;
+    }
+    
+    .fullwidth .rightCol {
+        display: flex;
+    }
+}
+
+.fullwidth span {
+    display: inline-block;
+    padding-right: 10px;
 }
 
 .listContainer {
@@ -16,13 +39,11 @@
     flex-direction: row;
     flex-wrap: wrap;
     width: 100%;
-    margin-top: 40px;
     flex: 1;
 }
 
 @media screen and (min-width: 1050px) {
     .listContainer {
-        margin-top: 0;
         width: calc(100% - 250px);
     }
 }
@@ -74,13 +95,19 @@
     overflow: hidden;
 }
 
+.infosContainer .date {
+    color: #777777;
+    font-size: 12px;
+}
+
 .infosContainer .name {
+    margin: 4px 0 10px;
     text-transform: uppercase;
 }
 
 .infosContainer .description {
     margin: 0;
-    padding: 0;
+    padding: 0 0 10px;
 }
 
 .priceContainer {
