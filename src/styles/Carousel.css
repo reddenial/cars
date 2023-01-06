@@ -1,0 +1,22 @@
+.btn_prev, .btn_next {
+    position: absolute;
+    top: 50%;
+    background-color:#EFEFEF;
+    padding: 12px 8px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    transition: 0.5s all ease-in;
+}
+
+.btn_prev:hover,
+.btn_next:hover {
+    background: #CDCDCD;
+}
+
+.btn_prev {
+    left: 0;
+}
+
+.btn_next {
+    right: -1px;
+}

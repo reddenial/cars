@@ -1,5 +1,5 @@
 .filters {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: calc(100% - 40px);
@@ -13,7 +13,7 @@
     padding-top: 30px;
 }
 
-@media screen and (min-width: 720px) {
+@media screen and (min-width: 1050px) {
     .filtersContainer {
         padding-top: 0;
     }

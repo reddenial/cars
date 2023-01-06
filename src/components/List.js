@@ -1,6 +1,7 @@
 import '../styles/List.css';
 import React from 'react';
 import Filters from './Filters';
+import Modal from './Modal';
 
 function List({listOfCars}) {
 
@@ -54,6 +55,53 @@ function List({listOfCars}) {
                 }
                 else if (filter === 'Year') {
                     filteredArray = initialData.filter((car) => car.Year <= filtersValue[filter]);
+                }
+                else if (filter === 'sort'){
+                    //filteredArray = initialData
+
+                    const sortedList = initialData;
+
+                    if (filtersValue[filter] === 'recent') {
+
+                        const key = 'modified'
+
+                        sortedList.sort(function (a, b) {
+                            var dateA = new Date(a[key]).getTime();
+                            var dateB = new Date(b[key]).getTime();
+
+                            if (dateA > dateB) return -1;
+                            if (dateA < dateB) return 1;
+                            return 0;
+                        });
+
+                    } else if (filtersValue[filter] === 'priceasc') {
+
+                        const key = 'price'
+
+                        sortedList.sort(function (a, b) {
+                            var keyA = a[key],
+                                keyB = b[key];
+
+                            if (keyA < keyB) return -1;
+                            if (keyA > keyB) return 1;
+                            return 0;
+                        });
+
+                    } else if (filtersValue[filter] === 'pricedes') {
+
+                        const key = 'price'
+
+                        sortedList.sort(function (a, b) {
+                            var keyA = a[key],
+                                keyB = b[key];
+
+                            if (keyA > keyB) return -1;
+                            if (keyA < keyB) return 1;
+                            return 0;
+                        });
+                    }
+
+                    filteredArray = sortedList
                 }
 
                 initialData = filteredArray
@@ -120,52 +168,11 @@ function List({listOfCars}) {
     const [selected, setSelected] = React.useState(selectOptions[0].value);
 
     const filterDatas = (type) => {
-
         //console.log(type)
 
-        const sortedList = filterArray();
-        
-        if (type === 'recent') {
-
-            const key = 'modified'
-
-            sortedList.sort(function (a, b) {
-                var dateA = new Date(a[key]).getTime();
-                var dateB = new Date(b[key]).getTime();
-
-                if (dateA > dateB) return -1;
-                if (dateA < dateB) return 1;
-                return 0;
-            });
-
-        } else if (type === 'priceasc') {
-            
-            const key = 'price'
-
-            sortedList.sort(function (a, b) {
-                var keyA = a[key],
-                    keyB = b[key];
-    
-                if (keyA < keyB) return -1;
-                if (keyA > keyB) return 1;
-                return 0;
-            });
-
-        } else if (type === 'pricedes') {
-
-            const key = 'price'
-
-            sortedList.sort(function (a, b) {
-                var keyA = a[key],
-                    keyB = b[key];
-
-                if (keyA > keyB) return -1;
-                if (keyA < keyB) return 1;
-                return 0;
-            });
-        }
-
-        setData(sortedList)
+        setFiltersValue({
+            ...filtersValue, sort: type,
+        })
     }
 
 
@@ -173,6 +180,21 @@ function List({listOfCars}) {
         setSelected(e.target.value)
         filterDatas(e.target.value)
     };
+
+    const [isShowing, setIsShowing] = React.useState(false);
+    const [carInfos, setCarInfos] = React.useState({});
+    
+    const hideModal = (e) => {
+        setIsShowing(false)
+        setCarInfos({})
+    };
+
+    const handleClick = (id) => {
+        setIsShowing(true)
+
+        let match = listOfCars.find(element => element.id === id);
+        setCarInfos(match)
+    }
     
     return (
         <div className="mainContainer">
@@ -202,7 +224,7 @@ function List({listOfCars}) {
                 {data.length > 0 ?
                     
                     data.map(({id, name, url_picture, price, description, modified, fuel, Year}) =>
-                    <div className="card" key={id}>
+                    <div className="card" key={id} onClick={() => handleClick(id)}>
                     <div className="thumbnailContainer">
                     <img className="thumbnail" src={url_picture} alt={name}></img>
                     </div>
@@ -220,6 +242,11 @@ function List({listOfCars}) {
                     : <div className="no-result">Sorry there is no match found</div>
                 }
             </div>
+            <Modal
+                isShowing={isShowing}
+                hide={hideModal}
+                carInfos={carInfos}
+            />
         </div>
     );
 }

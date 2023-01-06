@@ -1,0 +1,90 @@
+.modalContainer {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+
+    background-color: #FFFFFF;
+    box-shadow: 2px 2px 20px rgba(40, 50, 60, 0.5);
+    z-index: 50;
+    border-radius: 8px;
+    transition: opacity 400ms;
+    overflow: hidden;
+}
+
+.modalContainer.closed {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modalContainer.opened {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.infos {
+    position: relative;
+    height: calc(100% - 38px);
+    display: flex;
+    flex-direction: column;
+    padding-top: 38px;
+    overflow: auto;
+}
+
+@media screen and (min-width: 720px) {
+    .infos {
+        height: auto;
+        flex-direction: row;
+    }
+}
+
+.infosContainer {
+    height: auto;
+    overflow: visible;
+}
+
+.modalContainer .thumbnailContainer {
+    position: relative;
+    padding-left: 50%;
+}
+
+ul {
+    margin: 0 0 20px;
+    padding: 0;
+    list-style: none;
+}
+
+li {
+    display: inline-block;
+    margin: 4px 8px 4px 0;
+    padding: 4px 8px;
+    background-color: #DEDEDE;
+    border-radius: 4px;
+}
+
+.priceContainer {
+    margin-top: 20px;
+}
+
+.hide_btn {
+    position: absolute;
+    width: calc(100% - 40px);
+    text-align: center;
+    background-color: #CECECE;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.4s all ease-in;
+    border-radius: 4px 4px 0 0;
+    z-index: 50;
+}
+
+.hide_btn:hover {
+    background-color: #888888;
+}
+
+.date {
+    display: block;
+    margin-bottom: 10px;
+}
