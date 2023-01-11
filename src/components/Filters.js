@@ -16,7 +16,7 @@ function getValuesFromKey(arr, key){
 
 }
 
-function Filters({ listOfCars, filters, onChange, rangeChange, changeYear }) {
+function Filters({ listOfCars, filters, onChange, rangeChange, changeKM, changeYear }) {
 
     const [isOpen, setIsOpen] = React.useState(false)
 
@@ -65,6 +65,19 @@ function Filters({ listOfCars, filters, onChange, rangeChange, changeYear }) {
                                 />
                             </div>
                         )
+                    else if (key === 'KM')
+                        return (
+                            <div className="filterContainer" key={key}>
+                                <h2 className="filterTitle">{key}</h2>
+                                <Slider
+                                    min={0}
+                                    max={60000}
+                                    step={10000}
+                                    onChange={(e) => changeKM(e)}
+                                    type="KM"
+                                />
+                            </div>
+                        )
                     else if (key === 'Year')
                         return (
                             <div className="filterContainer" key={key}>
@@ -74,6 +87,7 @@ function Filters({ listOfCars, filters, onChange, rangeChange, changeYear }) {
                                     max={2022}
                                     step={1}
                                     onChange={(e) => changeYear(e)}
+                                    type="Year"
                                 />
                             </div>
                         )

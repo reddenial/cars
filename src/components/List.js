@@ -53,8 +53,12 @@ function List({listOfCars}) {
                 else if (filter === 'price'){
                     filteredArray = initialData.filter((car) => car.price > filtersValue[filter][0] && car.price < filtersValue[filter][1]);
                 }
+                else if (filter === 'KM') {
+                    filteredArray = initialData.filter((car) => parseInt(car.KM) >= parseInt(filtersValue[filter]));
+                }
                 else if (filter === 'Year') {
-                    filteredArray = initialData.filter((car) => car.Year <= filtersValue[filter]);
+                    console.log(filter, filtersValue[filter])
+                    filteredArray = initialData.filter((car) => parseInt(car.Year) <= parseInt(filtersValue[filter]));
                 }
                 else if (filter === 'sort'){
                     //filteredArray = initialData
@@ -152,6 +156,12 @@ function List({listOfCars}) {
         })
     }
 
+    const changeKM = ({ KM }) => {
+        setFiltersValue({
+            ...filtersValue, KM: KM,
+        })
+    }
+
     const changeYear = ({ year }) => {
         setFiltersValue({
             ...filtersValue, Year: year,
@@ -217,6 +227,7 @@ function List({listOfCars}) {
                 filters={filters} 
                 onChange={onChange} 
                 rangeChange={rangeChange} 
+                changeKM={changeKM}
                 changeYear={changeYear}
             />
             <div className="listContainer">
